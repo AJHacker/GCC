@@ -6,7 +6,7 @@
   <center>
     <h2 id='totalglobalcookies'></h2>
     <h2 id='mycookies'></h2>
-    <button  width = '200' height = '200'id = 'click' type="button">Bake Cookie</button>
+    <button id = 'click' type="button">Bake Cookie</button>
   </center>
 
     <script>
@@ -32,8 +32,6 @@
           mycookieslabel.innerHTML = 'Cookies Baked: '+ mycookies;
           socket.emit('update','/#'+socket.id,selfcookies);
           selfcookies = 0;
-
-        }
 
       });
       //END TIMER FIRED
