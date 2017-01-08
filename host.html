@@ -1,0 +1,66 @@
+<html>
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+
+  <body>
+    <h2 id='clients'></h2>
+
+    <canvas id="canvas" width="600" height="600">
+    This text is displayed if your browser does not support HTML5 Canvas.
+    </canvas>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+      ctx.canvas.width = .8 * window.innerWidth;
+      ctx.canvas.height = .8 * window.innerHeight;
+      var WIDTH = .8 * window.innerWidth;
+      var HEIGHT = .8 * window.innerHeight;
+      var RADIUS = 10;
+
+      var socket = io();
+      var e1 = document.getElementById('clients');
+      socket.emit('hostConnected');
+
+      socket.on('tick', function(data) {
+        drawMyScreen(data);
+        e1.innerHTML = 'Players Live: '+data.clients;
+      });
+
+      function drawMyScreen(data){
+        ctx.clearRect(0, 0, WIDTH, HEIGHT);
+        ctx.fillStyle = "white";
+        ctx.strokeStyle = "black";
+        rect(0, 0, WIDTH, HEIGHT);
+        ctx.fillStyle = "blue";
+        for (i=0;i<data.clientIDs.length;i++){
+          var id = data.clientIDs[i];
+          console.log(id);
+          var x = data.positions[data.clientIDs[i]+'x'];
+          var y = data.positions[data.clientIDs[i]+'y'];
+          console.log(x,y);
+          console.log(id);
+
+          circle(x,y,RADIUS);
+        }
+      }
+
+      function rect(x, y, w, h) {
+          ctx.beginPath();
+          ctx.rect(x, y, w, h);
+          ctx.closePath();
+          ctx.fill();
+          ctx.stroke();
+      }
+
+      function circle(x, y, r) {
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, Math.PI * 2, true);
+          ctx.fill();
+      }
+
+    </script>
+
+  </body>
+</html>

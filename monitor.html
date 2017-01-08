@@ -1,0 +1,43 @@
+<html>
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+
+  <body>
+    <h2>data.</h2>
+    <h2 id='clients'></h2>
+    <h2 id='host'></h2>
+    <h2 id='hostIDs'></h2>
+    <h2 id='clientIDs'></h2>
+    <h2 id='totalConnections'></h2>
+    <h2 id='myid'></h2>
+    <h2 id='positions'></h2>
+
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      var socket = io();
+      var e1 = document.getElementById('clients');
+      var e2 = document.getElementById('host');
+      var e3 = document.getElementById('hostIDs');
+      var e4 = document.getElementById('clientIDs');
+      var e5 = document.getElementById('totalConnections');
+      var e6 = document.getElementById('myid');
+      var e7 = document.getElementById('positions');
+
+
+
+      socket.on('tick', function(data) {
+        e1.innerHTML = 'Clients Connected: '+data.clients;
+        e2.innerHTML = 'Host Connected?: '+data.host;
+        e3.innerHTML = 'HostIDs: '+ data.hostIDs.join();
+        e4.innerHTML = 'Client IDs: '+data.clientIDs.join();
+        e5.innerHTML = 'Total Connections '+data.totalConnections;
+        e6.innerHTML = 'Your ID: '+socket.id;
+        e7.innerHTML = 'Pos: Console!';
+        console.log(data.positions);
+
+
+      });
+    </script>
+
+  </body>
+</html>

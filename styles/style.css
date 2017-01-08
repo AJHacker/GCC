@@ -1,0 +1,31 @@
+body{
+ background:linear-gradient(141deg,#0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+}
+
+h1{
+  color:#f3f3f3;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  font-size:3.5em;
+
+}
+h2{
+  color:#f3f3f3;
+  font-family: "Open Sans", Helvetica, sans-serif;
+  font-size:2em;
+
+
+}
+a {
+    font-family: "Open Sans", Helvetica, sans-serif;
+    color: #f3f3f3;
+    border-left: 5px solid #FF3366;
+    width: 60%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 2em;
+}
+a:hover {
+background-color: #f3f3f3;
+color: #1FC8DB;
+}

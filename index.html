@@ -1,0 +1,28 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+
+<script src="/socket.io/socket.io.js"></script>
+
+
+<center>
+    <h1>Welcome to Game</h1>
+    </br>
+    <a href = '/client'>Client Click Here</a>
+    <a href = '/host'>Host Click Here</a>
+    <p id = 'totalConnections'></p>
+
+</center>
+
+<script>
+  var socket = io();
+  var e1 = document.getElementById('totalConnections');
+
+  socket.on('tick', function(data) {
+    e1.innerHTML = 'Total Connections: '+ data.totalConnections;
+
+
+  });
+</script>
+
+</html>
