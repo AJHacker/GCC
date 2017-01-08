@@ -38,7 +38,7 @@ var io = socketIO(server);
 
 
 io.on('connection', (socket) => {
-  data.totalConnections = data.totalConnections+1;
+  data.totalConnections = data.totalConnections + 1;
 
   socket.on('clientConnected',function(){
     data.clientIDs.push(String(socket.id));
@@ -59,7 +59,7 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect',function(){
     if(data.clientIDs.includes(String(socket.id))){
-        delete data.positions[String(socket.id)+'cookies'];
+        delete data.cookiesbyclient[String(socket.id)+'cookies'];
         var index = data.clientIDs.indexOf(String(socket.id));
         data.clientIDs.splice(index, 1);
         data.clients = data.clients-1;
