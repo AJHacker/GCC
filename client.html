@@ -28,7 +28,7 @@
       socket.on('tick', function(data) {
 
           globalcookielabel.innerHTML = data.globalcookies;
-          var mycookies = data.cookiesbyclient[data.clientIDs['/#'+socket.id]+'cookies'];
+          var mycookies = data.cookiesbyclient['/#'+socket.id+'cookies'];
           mycookieslabel.innerHTML = 'Cookies Baked: '+ mycookies;
           socket.emit('update','/#'+socket.id,selfcookies);
           selfcookies = 0;
