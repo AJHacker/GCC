@@ -4,33 +4,21 @@
 
   <body>
   <center>
-    <h2 id='clients'></h2>
-    <h2 id='host'></h2>
-    <h2 id='myid'></h2>
-    <button  id = 'up' type="button"></button><br>
-    <button  id = 'left' type="button"></button><button id = 'right' type="button"></button><br>
-    <button  id = 'down' type="button"></button>
-
+    <h2 id='totalglobalcookies'></h2>
+    <h2 id='mycookies'></h2>
+    <button  width = '200' height = '200'id = 'click' type="button">Bake Cookie</button>
   </center>
 
     <script>
       //INIT
 
       var socket = io();
-      var x = 0;
-      var y = 0;
-      var e1 = document.getElementById('clients');
-      var e2 = document.getElementById('host');
-      var e3 = document.getElementById('myid');
-      var left = document.getElementById('left');
-      var right = document.getElementById('right');
-      var down = document.getElementById('down');
-      var up = document.getElementById('up');
-      up.onclick = function (){y -= 5;};
-      down.onclick = function (){y += 5;};
-      left.onclick = function (){x -= 5;};
-      right.onclick = function (){x += 5;};
+      var selfcookies = 0;
+      var globalcookielabel = document.getElementById('totalglobalcookies');
+      var mycookieslabel = document.getElementById('mycookies');
 
+      var click = document.getElementById('click');
+      click.onclick = function (){selfcookies += 1;};
       socket.emit('clientConnected');
       //END INIT
 
@@ -38,33 +26,12 @@
 
       //TIMER FIRED
       socket.on('tick', function(data) {
-        if (data.host) {
-          e1.innerHTML = "Game Started:";
-          e2.innerHTLM = '';
-          e3.innerHTML = '';
-          left.innerHTML = 'Left';
-          right.innerHTML = 'Right';
-          up.innerHTML = 'Up';
-          down.innerHTML = 'Down';
-          left.style.visibility = 'visible';
-          right.style.visibility = 'visible';
-          up.style.visibility = 'visible';
-          down.style.visibility = 'visible';
-          socket.emit('update','/#'+socket.id,x,y);
-          console.log('/#'+socket.id,x,y);
-          // data.positions['/#'+socket.id+'x'] = x;
-          // data.positions['/#'+socket.id+'y'] = y;
-          // console.log('X:' + data.positions['/#'+socket.id+'x']);
-          // console.log('Y:' + data.positions['/#'+socket.id+'y']);
-          // console.log('/#'+socket.id+'x');
-        }else{
-          left.style.visibility = 'hidden'
-          right.style.visibility = 'hidden'
-          up.style.visibility = 'hidden'
-          down.style.visibility = 'hidden'
-          e1.innerHTML = 'Players: '+data.clients;
-          e2.innerHTML = 'Host Connected?: '+data.host;
-          e3.innerHTML = 'Your ID: '+socket.id;
+
+          globalcookielabel.innerHTML = data.globalcookies;
+          var mycookies = data.cookiesbyclient[data.clientIDs['/#'+socket.id]+'cookies'];
+          mycookieslabel.innerHTML = 'Cookies Baked: '+ mycookies;
+          socket.emit('update','/#'+socket.id,selfcookies);
+          selfcookies = 0;
 
         }
 

@@ -1,4 +1,8 @@
 # MCVP
-Mobile Computer View Platform
+Fun online Cookie Clicker Game!
 
-Code for a very simple socket.io example
+Visit:
+
+globalcookieclicker.herokuapp.com
+
+to play!
